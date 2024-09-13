@@ -1,5 +1,3 @@
-# desafio-target-vaga-sp
-
 # Estágio Target- São Paulo
 
 ## Pergunta 2 de 2
