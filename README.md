@@ -1,4 +1,4 @@
-# Estágio Target- São Paulo
+# Desafio estágio Target - São Paulo
 
 ### Técnica
 
