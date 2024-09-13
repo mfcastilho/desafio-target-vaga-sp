@@ -38,11 +38,10 @@ function achaValoresMaioresQueMedia(faturamento) {
 
   const diasComValoresMaioresQueMedia = faturamento.filter(f => f.valor > media);
 
-  return `Média: ${media}
-Valores acima da média: ${diasComValoresMaioresQueMedia.map(dia => dia.valor)}
+  return `Média: ${media.toFixed(2)}
+Valores acima da média foram ${diasComValoresMaioresQueMedia.length}: ${diasComValoresMaioresQueMedia.map(dia => dia.valor)}
   `;
 }
-
 
 const faturamento = [
   { dia: 1, valor: 1000 },
@@ -54,6 +53,7 @@ const faturamento = [
   { dia: 7, valor: 5000 },
   { dia: 8, valor: 3000 },
   { dia: 9, valor: 0 },
+  { dia: 10, valor: 3001 },
 ];
 
 console.log(calculaMenorValor(faturamento));
