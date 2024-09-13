@@ -1,7 +1,5 @@
 # Estágio Target- São Paulo
 
-## Pergunta 2 de 2
-
 ### Técnica
 
 1. **Código e Resultado**
