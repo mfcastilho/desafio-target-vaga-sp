@@ -26,6 +26,6 @@ const calculateFibonacciSequence = (n) => {
   return `O número ${n} PERTENCE a sequência de Fibonacci!`;
 }
 
-console.log(calculateFibonacciSequence(34));
+console.log(calculateFibonacciSequence(33));
 
 module.exports = calculateFibonacciSequence;

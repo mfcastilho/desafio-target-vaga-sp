@@ -13,19 +13,22 @@
 
 
 
-function calculaPercentualPorEstado(faturamentos) {
-  let total = Object.values(faturamentos).reduce((acc, curr) => acc + curr, 0);
+function calculatePercentageByState(revenues) {
+  let total = Object.values(revenues).reduce((acc, curr) => acc + curr, 0);
   
-  const porcentagens = {};
+  const percentages = {};
   
-  for (const key in faturamentos) {
-    porcentagens[key] = {valor: faturamentos[key], percentual: Number(((faturamentos[key] / total) * 100).toFixed(2))};
+  for (const key in revenues) {
+    const value = revenues[key];
+    const percentage = Number(((value / total) * 100).toFixed(2));
+
+    percentages[key] = {valor: value, percentual: percentage};
   }
   
-  return porcentagens;
+  return percentages;
 }
 
-const faturamentos = {
+const revenues = {
   'SP': 67836.43,
   'RJ': 36678.66,
   'MG': 29229.88,
@@ -33,4 +36,4 @@ const faturamentos = {
   'Outros': 19849.53,
 }
 
-console.log(calculaPercentualPorEstado(faturamentos));
+console.log(calculatePercentageByState(revenues));

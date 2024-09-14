@@ -11,51 +11,196 @@ b) Podem existir dias sem faturamento, como nos finais de semana e feriados.
 Estes dias devem ser ignorados no cálculo da média.
 */
 
-function achaValoresValidos(faturamento) {
-  const valoresValidos = faturamento
-    .filter((f) => f.valor > 0)
-    .map((f) => f.valor);
+function validateValueType(data) {
+  if (!Array.isArray(data)) {
+    return false;
+  }
 
-  return valoresValidos;
+  return true;
 }
 
-function calculaMenorValor(faturamento) {
-  const valoresValidos = achaValoresValidos(faturamento);
-  
-  return Math.min(...valoresValidos);
+function findValidateValues(revenues) {
+  const validateValues = revenues.filter((f) => f.valor > 0).map((f) => f.valor);
+
+  return validateValues;
 }
 
-function calculaMaiorValor(faturamento) {
-  const valoresValidos = achaValoresValidos(faturamento);
+function calculateSmallestValue(revenues) {
+  if (!validateValueType(revenues)) {
+    return 'Valor de entrada inválido!';
+  }
 
-  return Math.max(...valoresValidos);
+  const validValues = findValidateValues(revenues);
+
+  if (validValues.length === 0) {
+    return 'Não há valores válidos para calcular o menor valor';
+  }
+
+  return Math.min(...validValues);
 }
 
-function achaValoresMaioresQueMedia(faturamento) {
-  const valoresValidos = achaValoresValidos(faturamento);
+function calculateLargestValue(revenues) {
+  if (!validateValueType(revenues)) {
+    return 'Valor de entrada inválido!';
+  }
 
-  const media = valoresValidos.reduce((acc, curr) => acc + curr, 0) / valoresValidos.length;
+  const validValues = findValidateValues(revenues);
 
-  const diasComValoresMaioresQueMedia = faturamento.filter(f => f.valor > media);
+  if (validValues.length === 0) {
+    return 'Não há valores válidos para calcular o maior valor';
+  }
 
-  return `Média: ${media.toFixed(2)}
-Valores acima da média foram ${diasComValoresMaioresQueMedia.length}: ${diasComValoresMaioresQueMedia.map(dia => dia.valor)}
+  return Math.max(...validValues);
+}
+
+function findValuesGreaterThanAverage(revenues) {
+  if (!validateValueType(revenues)) {
+    return 'Valor de entrada inválido!';
+  }
+
+  const validValues = findValidateValues(revenues);
+
+  if (validValues.length === 0) {
+    return 'Não há dados válidos para calcular a média';
+  }
+
+  const average =
+    validValues.reduce((acc, curr) => acc + curr, 0) / validValues.length;
+
+  const daysWithValuesGreaterThanAverage = revenues.filter(
+    (f) => f.valor > average
+  );
+
+  return `Média: ${average.toFixed(2)}
+Tivemos no total ${daysWithValuesGreaterThanAverage.length} dias com valores acima da média.
+Estes valores foram: ${daysWithValuesGreaterThanAverage.map(dia => `\n -${dia.valor}`)}
   `;
 }
 
-const faturamento = [
-  { dia: 1, valor: 1000 },
-  { dia: 2, valor: 4000 },
-  { dia: 3, valor: 0 },
-  { dia: 4, valor: 2000 },
-  { dia: 5, valor: -1000 },
-  { dia: 6, valor: 0 },
-  { dia: 7, valor: 5000 },
-  { dia: 8, valor: 3000 },
-  { dia: 9, valor: 0 },
-  { dia: 10, valor: 3001 },
+const revenues = [
+  {
+    dia: 1,
+    valor: 22174.1664,
+  },
+  {
+    dia: 2,
+    valor: 24537.6698,
+  },
+  {
+    dia: 3,
+    valor: 26139.6134,
+  },
+  {
+    dia: 4,
+    valor: 0.0,
+  },
+  {
+    dia: 5,
+    valor: 0.0,
+  },
+  {
+    dia: 6,
+    valor: 26742.6612,
+  },
+  {
+    dia: 7,
+    valor: 0.0,
+  },
+  {
+    dia: 8,
+    valor: 42889.2258,
+  },
+  {
+    dia: 9,
+    valor: 46251.174,
+  },
+  {
+    dia: 10,
+    valor: 11191.4722,
+  },
+  {
+    dia: 11,
+    valor: 0.0,
+  },
+  {
+    dia: 12,
+    valor: 0.0,
+  },
+  {
+    dia: 13,
+    valor: 3847.4823,
+  },
+  {
+    dia: 14,
+    valor: 373.7838,
+  },
+  {
+    dia: 15,
+    valor: 2659.7563,
+  },
+  {
+    dia: 16,
+    valor: 48924.2448,
+  },
+  {
+    dia: 17,
+    valor: 18419.2614,
+  },
+  {
+    dia: 18,
+    valor: 0.0,
+  },
+  {
+    dia: 19,
+    valor: 0.0,
+  },
+  {
+    dia: 20,
+    valor: 35240.1826,
+  },
+  {
+    dia: 21,
+    valor: 43829.1667,
+  },
+  {
+    dia: 22,
+    valor: 18235.6852,
+  },
+  {
+    dia: 23,
+    valor: 4355.0662,
+  },
+  {
+    dia: 24,
+    valor: 13327.1025,
+  },
+  {
+    dia: 25,
+    valor: 0.0,
+  },
+  {
+    dia: 26,
+    valor: 0.0,
+  },
+  {
+    dia: 27,
+    valor: 25681.8318,
+  },
+  {
+    dia: 28,
+    valor: 1718.1221,
+  },
+  {
+    dia: 29,
+    valor: 13220.495,
+  },
+  {
+    dia: 30,
+    valor: 8414.61,
+  },
 ];
 
-console.log(calculaMenorValor(faturamento));
-console.log(calculaMaiorValor(faturamento));
-console.log(achaValoresMaioresQueMedia(faturamento));
+
+console.log(calculateSmallestValue(revenues));
+console.log(calculateLargestValue(revenues));
+console.log(findValuesGreaterThanAverage(revenues));
